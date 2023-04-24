@@ -14,7 +14,6 @@ export class DockerManager {
   async createContainer(username: string): Promise<ContainerReturn> {
     // Generate a unique name for the username
     username = `ctf-${username.replace(" ", "-")}-${nanoid(6)}`;
-
     const container = await this.docker.createContainer({
       Image: CTF_CONTAINER_IMAGE_NAME,
       name: username,
@@ -32,6 +31,12 @@ export class DockerManager {
           ],
         },
       },
+      Volumes: {
+        [`/logs/level0_logs.json`]: {
+          "/etc/logs/level0_logs.json": "ro",
+        },
+      },
+      Env: ["CTF_USERNAME=" + username],
     });
 
     await container.start();
@@ -59,6 +64,18 @@ export class DockerManager {
       },
     });
     return containers;
+  }
+
+  async deleteContainers(username?: string) {
+    // Delete all CTF containers
+    // If username is provided, it will delete all containers for that user
+
+    let containers = await this.listCTFContainers(username);
+    containers.map(async (container) => {
+      let container_data = this.docker.getContainer(container.Id);
+      await container_data.stop();
+      await container_data.remove();
+    });
   }
 
   async get_new_port() {

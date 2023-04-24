@@ -2,9 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { DockerManager } from "./docker";
 import { ContainerInfo } from "dockerode";
 
-type ReturnData = {
-  containers: ContainerInfo[];
-};
+type ReturnData = ContainerInfo[];
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,5 +10,5 @@ export default async function handler(
 ) {
   let docker = new DockerManager();
   let containers = await docker.listCTFContainers();
-  res.status(200).json({ containers: containers });
+  res.status(200).json(containers);
 }
