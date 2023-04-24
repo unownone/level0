@@ -1,0 +1,26 @@
+services:
+  next-app:
+    build: .
+    # hosting on port 80
+    ports:
+      - 80:3000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.next-app.rule=Host(`next-app`)"
+
+  # Not using traefik for now, but this is how you would set it up
+  # router:
+  #   image: traefik:latest
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #     - 8080:8080
+  #   command:
+  #     - "--entrypoints.web.address=:80"
+  #     - "--entrypoints.websecure.address=:443"
+  #     - "--providers.docker=true"
+  #   container_name: "traefik"
+  #   volumes:
+  #     - "/var/run/docker.sock:/var/run/docker.sock:ro"
