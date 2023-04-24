@@ -41,7 +41,7 @@ export default function Home() {
       <main
         className={`flex min-h-screen flex-col items-center p-24 ${inter.className}`}
       >
-        <Tilt glareEnable={true} gyroscope={true}>
+        <Tilt>
           <div className="flex flex-col items-center border-4 p-10 rounded-xl">
             <div className="flex flex-col mb-10">
               <p className="text-6xl font-bold">lEvEl0</p>
@@ -79,26 +79,26 @@ export default function Home() {
               </button>
             </div>
             <Tilt>
-              <div className="mt-10" hidden={terminalCommand === null}>
-                <div className="flex flex-row border bg-slate-800 rounded-lg border-slate-200 p-2">
-                  <p className="rounded-md p-1 font-sans font-thin">
-                    {terminalCommand}
-                  </p>
-                  <button
-                    className="border rounded-md ml-2 p-1 hover:bg-slate-900 hover:text-slate-100"
-                    onClick={() => {
-                      navigator.clipboard.writeText(terminalCommand!);
-                    }}
-                  >
+              <button
+                className="border rounded-md ml-2 p-1 hover:bg-slate-900 hover:text-slate-100"
+                onClick={() => {
+                  navigator.clipboard.writeText(terminalCommand!);
+                }}
+              >
+                <div className="mt-10" hidden={terminalCommand === null}>
+                  <div className="flex flex-row border bg-slate-800 rounded-lg border-slate-200 p-2">
+                    <p className="rounded-md p-1 font-sans font-thin">
+                      {terminalCommand}
+                    </p>
                     <FiCopy />
-                  </button>
-                </div>
+                  </div>
 
-                <div className="items-center text-center">
-                  <span className="font-thin">Password:</span>{" "}
-                  <span className="font-bold">level0</span>
+                  <div className="items-center text-center">
+                    <span className="font-thin">Password:</span>{" "}
+                    <span className="font-bold">level0</span>
+                  </div>
                 </div>
-              </div>
+              </button>
             </Tilt>
           </div>
         </Tilt>
