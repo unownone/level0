@@ -79,26 +79,26 @@ export default function Home() {
               </button>
             </div>
             <Tilt>
-              <button
-                className="border rounded-md ml-2 p-1 hover:bg-slate-900 hover:text-slate-100"
-                onClick={() => {
-                  navigator.clipboard.writeText(terminalCommand!);
-                }}
-              >
-                <div className="mt-10" hidden={terminalCommand === null}>
-                  <div className="flex flex-row border bg-slate-800 rounded-lg border-slate-200 p-2">
-                    <p className="rounded-md p-1 font-sans font-thin">
-                      {terminalCommand}
-                    </p>
+              <div className="mt-10" hidden={terminalCommand === null}>
+                <div className="flex flex-row border bg-slate-800 rounded-lg border-slate-200 p-2">
+                  <p className="rounded-md p-1 font-sans font-thin">
+                    {terminalCommand}
+                  </p>
+                  <button
+                    className="border rounded-md ml-2 p-1 hover:bg-slate-900 hover:text-slate-100"
+                    onClick={() => {
+                      navigator.clipboard.writeText(terminalCommand!);
+                    }}
+                  >
                     <FiCopy />
-                  </div>
-
-                  <div className="items-center text-center">
-                    <span className="font-thin">Password:</span>{" "}
-                    <span className="font-bold">level0</span>
-                  </div>
+                  </button>
                 </div>
-              </button>
+
+                <div className="items-center text-center">
+                  <span className="font-thin">Password:</span>{" "}
+                  <span className="font-bold">level0</span>
+                </div>
+              </div>
             </Tilt>
           </div>
         </Tilt>
