@@ -3,6 +3,7 @@ import { DockerManager } from "./docker";
 import { ContainerInfo } from "dockerode";
 import { ContainerLogs } from "@/utils/types";
 import { WriteStream } from "fs";
+import { log } from "console";
 
 type ReturnData = {
   logs: ContainerLogs[];
@@ -30,17 +31,21 @@ export default async function handler(
         stdin: true,
       }
     );
-    let data: string  = [];
+    let data: string[]  = [];
     stream.on("data", (chunk) => {
       data.push(chunk.toString("utf8"));
     });
     return new Promise((resolve) => {
       stream.on("end", () => {
-        logs.push({
-          id: container.Id,
+        var ContainerLog: ContainerLogs = {
+          logs: data.join(""),
           logData: data,
-        });
-        resolve();
+          id:container.Id,
+        };
+        logs.push(ContainerLog);
+        resolve(
+          log
+        );
       });
     });
   });
