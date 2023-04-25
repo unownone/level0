@@ -8,3 +8,8 @@ export type UserDataForm = {
   username: string;
   email: string;
 };
+
+export type ContainerLogs = {
+  logs: string;
+  id: string;
+};
