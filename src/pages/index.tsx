@@ -136,7 +136,7 @@ export default function Home() {
             <span className="text-xl self-center">mins</span>:{seconds}{" "}
             <span className="text-xl self-center">secs</span>
             <br />
-            <span className="text-2xl">left</span>
+            <span className="text-4xl self-center">left to go</span>
           </p>
         </>
       );
