@@ -11,5 +11,6 @@ export type UserDataForm = {
 
 export type ContainerLogs = {
   logs: string;
+  logData: string[];
   id: string;
 };
