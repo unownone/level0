@@ -33,7 +33,7 @@ export default async function handler(
     stream.on("data", (chunk) => {
       data.push(chunk.toString("utf8"));
     });
-    return new Promise<void>((resolve) => {
+    return new Promise((resolve) => {
       stream.on("end", () => {
         var ContainerLog: ContainerLogs = {
           logs: data.join(""),
