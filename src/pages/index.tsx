@@ -5,9 +5,13 @@ import { FiCopy } from "react-icons/fi";
 import { ImSpinner } from "react-icons/im";
 import Head from "next/head";
 import Tilt from "react-parallax-tilt";
+import dayjs from "dayjs";
+import Countdown from "react-countdown";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const startTime = dayjs("2023-04-25T15:00:00.000+05:30"); // Countdown timer for 25th April 2023 3:00 PM IST
+console.log(startTime > dayjs());
 export default function Home() {
   const [uname, setUname] = useState("");
   const [email, setEmail] = useState("");
@@ -35,14 +39,20 @@ export default function Home() {
     }
   }, [loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return (
-    <>
-      <Head>
-        <title>lEvEl0 | HackWay</title>
-      </Head>
-      <main
-        className={`flex min-h-screen flex-col items-center p-24 ${inter.className}`}
-      >
+  const renderer = ({
+    hours,
+    minutes,
+    seconds,
+    completed,
+  }: {
+    hours: number;
+    minutes: number;
+    seconds: number;
+    completed: boolean;
+  }) => {
+    if (completed) {
+      // Render a completed state
+      return (
         <Tilt>
           <div className="flex flex-col items-center border-4 p-10 rounded-xl">
             <div className="flex flex-col mb-10">
@@ -113,6 +123,35 @@ export default function Home() {
             </Tilt>
           </div>
         </Tilt>
+      );
+    } else {
+      // Render a countdown
+      return (
+        <>
+          <p className="text-4xl font-bold text-slate-100 self-center">
+            level0 will Start Soon.
+          </p>
+          <p className="text-8xl font-bold text-slate-100 self-center m-40 transition-all	">
+            {hours} <span className="text-xl self-center">hours</span>:{minutes}{" "}
+            <span className="text-xl self-center">mins</span>:{seconds}{" "}
+            <span className="text-xl self-center">secs</span>
+            <br />
+            <span className="text-2xl">left</span>
+          </p>
+        </>
+      );
+    }
+  };
+
+  return (
+    <>
+      <Head>
+        <title>lEvEl0 | HackWay</title>
+      </Head>
+      <main
+        className={`flex min-h-screen flex-col items-center p-24 ${inter.className}`}
+      >
+        <Countdown date={startTime.toDate()} renderer={renderer} />
       </main>
     </>
   );
