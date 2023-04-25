@@ -22,15 +22,21 @@ export default async function handler(
     let execResp = await container_data.exec({
       Cmd: ["who"],
       AttachStdout: true,
+      AttachStderr: true,
     });
     // logs.push({
     //   logs: data as string,
     //   id: container.Id,
     // });
     let resp = await execResp.start({ stdin: false });
-    console.log(resp);
+    // console.log(resp);
     // resp.emit("close");
   });
+  logs.push({
+    logs: "Hello",
+    id: "123",
+  });
+
   res.status(200).json({
     logs: logs,
   });
