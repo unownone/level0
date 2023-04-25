@@ -6,9 +6,7 @@ import { useEffect, useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [password, setPassword] = useState<string | null>(
-    localStorage.getItem("CTF_ADMIN_KEY")
-  );
+  const [password, setPassword] = useState<string | null>(null);
 
   return (
     <div className={`${inter.className}`}>

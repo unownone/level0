@@ -24,17 +24,15 @@ export default async function handler(
       AttachStderr: true,
     });
     let exec = docker.docker.getExec(execResp.id);
-    let stream = await exec.start(
-      {
-        hijack: true,
-        stdin: true,
-      }
-    );
-    let data = [];
+    let stream = await exec.start({
+      hijack: true,
+      stdin: true,
+    });
+    let data: any[] = [];
     stream.on("data", (chunk) => {
       data.push(chunk.toString("utf8"));
     });
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       stream.on("end", () => {
         logs.push({
           id: container.Id,

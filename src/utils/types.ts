@@ -10,6 +10,6 @@ export type UserDataForm = {
 };
 
 export type ContainerLogs = {
-  logs: string;
+  logs: any[];
   id: string;
 };
