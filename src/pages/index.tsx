@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
 import { createContainer } from "@/utils/api";
 import { FiCopy } from "react-icons/fi";
+import { ImSpinner } from "react-icons/im";
 import Head from "next/head";
 import Tilt from "react-parallax-tilt";
 
@@ -12,6 +13,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [terminalCommand, setTerminalCommand] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [copyLoading, setCopyLoading] = useState(false);
 
   useEffect(() => {
     if (loading) {
@@ -87,10 +89,19 @@ export default function Home() {
                   <button
                     className="border rounded-md ml-2 p-1 hover:bg-slate-900 hover:text-slate-100"
                     onClick={() => {
-                      navigator.clipboard.writeText(terminalCommand!);
+                      setCopyLoading(true);
+                      navigator.clipboard
+                        .writeText(terminalCommand!)
+                        .then(() => {
+                          setCopyLoading(false);
+                        })
+                        .catch((err) => {
+                          alert("Failed to copy to clipboard");
+                          setCopyLoading(false);
+                        });
                     }}
                   >
-                    <FiCopy />
+                    {copyLoading ? <ImSpinner /> : <FiCopy />}
                   </button>
                 </div>
 

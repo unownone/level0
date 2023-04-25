@@ -18,6 +18,7 @@ export default async function handler(
   }
 
   let token = req.headers.token;
+  console.log(token, process.env.API_TOKEN);
   if (!token || token !== process.env.API_TOKEN) {
     res.status(401).json({
       message: "Unauthorized",
