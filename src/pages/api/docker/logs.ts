@@ -30,7 +30,7 @@ export default async function handler(
         stdin: true,
       }
     );
-    let data = [];
+    let data: string  = [];
     stream.on("data", (chunk) => {
       data.push(chunk.toString("utf8"));
     });
@@ -38,7 +38,7 @@ export default async function handler(
       stream.on("end", () => {
         logs.push({
           id: container.Id,
-          logs: data,
+          logData: data,
         });
         resolve();
       });
