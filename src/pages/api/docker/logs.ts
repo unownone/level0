@@ -23,21 +23,24 @@ export default async function handler(
       Cmd: ["who"],
       AttachStdout: true,
       AttachStderr: true,
-    });
-    // logs.push({
-    //   logs: data as string,
-    //   id: container.Id,
-    // });
-    let resp = await execResp.start({ stdin: false });
-    // console.log(resp);
-    // resp.emit("close");
-  });
-  logs.push({
-    logs: "Hello",
-    id: "123",
-  });
 
-  res.status(200).json({
-    logs: logs,
-  });
+    });
+    let exec = docker.docker.getExec(execResp.id);
+    let stream = await exec.start();
+    let data = [];
+    stream.on("data", (chunk) => {
+      data.push(chunk.toString("utf8"));
+    }
+    );
+    stream.on("end", () => {
+      console.log("end")
+      logs.push({
+        id: container.Id,
+        logs: data,
+      });
+      res.status(200).json({
+        logs: logs,
+      });
+    });
+  });  
 }
